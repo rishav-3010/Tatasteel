@@ -59,8 +59,21 @@ for i in range(NUM_ROWS):
     humidity = np.random.normal(75, 5)                 # 75% Humidity (steamy mill)
     
     # Introduce occasional anomalies (Random spikes)
-    if random.random() < 0.005: # 0.5% chance of a spike
-        vib += 5.0 # Sudden shock
+    
+    # Simulate a systemic fault that affects multiple sensors simultaneously
+    system_fault = random.random() < 0.005  # Increased to 0.5% chance
+
+    # Vibration spike
+    if system_fault or random.random() < 0.002:
+        vib += 8.0  # Increased spike to ensure it crosses threshold
+
+    # Winding temperature spike
+    if system_fault or random.random() < 0.002:
+        winding_temp += random.uniform(25, 40) # Increased spike to ensure it crosses threshold
+
+    # Bearing temperature spike
+    if system_fault or random.random() < 0.002:
+        bearing_temp += random.uniform(20, 30) # Increased spike to ensure it crosses threshold
     
     # 5. Append Record
     data.append([
